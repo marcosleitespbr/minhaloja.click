@@ -1,0 +1,84 @@
+<!--
+    Fragmento HTML e Lógica para a Seção "Minha Loja"
+    Carregado dinamicamente na #content-area do painel.
+-->
+<div class="table-card-container">
+    <div class="settings-header">
+        <div>
+            <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--brand-dark);">
+                Configurações da Loja
+            </h2>
+            <p style="color: var(--brand-muted); margin-top: 4px;">
+                Gerencie as informações públicas e o plano do seu catálogo digital.
+            </p>
+        </div>
+    </div>
+
+    <form id="store-form" style="margin-top: 24px;">
+        <!-- Nome da Loja -->
+        <div class="form-group">
+            <label for="store_name">Nome da Loja</label>
+            <input type="text" id="store_name" name="store_name" placeholder="Ex: Minha Loja" required>
+        </div>
+
+        <!-- Slug (URL) -->
+        <div class="form-group">
+            <label for="slug">URL da Loja (minhaloja.click/slug)</label>
+            <input type="text" id="slug" name="slug" placeholder="Ex: minha-loja" required>
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="form-group">
+            <label for="whatsapp_number">WhatsApp para Vendas (com DDD)</label>
+            <input type="text" id="whatsapp_number" name="whatsapp_number" placeholder="Ex: 11987654321">
+        </div>
+
+        <!-- Descrição -->
+        <div class="form-group">
+            <label for="description">Descrição da Loja</label>
+            <textarea id="description" name="description" rows="4"
+                style="height: auto !important; padding: 10px !important;"
+                placeholder="Fale um pouco sobre seu negócio."></textarea>
+        </div>
+
+        <!-- Upload de Logotipo -->
+        <div class="form-group">
+            <label for="logo_file">Logotipo da Loja</label>
+            <div style="display: flex; align-items: center; gap: 16px; margin-top: 8px;">
+                <div id="logo-preview-container"
+                    style="width: 56px; height: 56px; border-radius: 50%; background: #e2e8f0; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #cbd5e1;">
+                    <span id="logo-placeholder-text" style="font-size: 0.75rem; color: #64748B;">Logo</span>
+                    <img id="logo-preview" src="" alt="Preview"
+                        style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                </div>
+                <div style="flex: 1;">
+                    <input type="file" id="logo_file" accept="image/*" style="font-size: 0.875rem;">
+                    <p style="font-size: 0.75rem; color: var(--brand-muted); margin-top: 4px;">Envie uma imagem PNG ou
+                        JPG para atualizar o logo.</p>
+                </div>
+            </div>
+            <!-- Campo oculto para manter a URL atual caso nenhum novo arquivo seja enviado -->
+            <input type="hidden" id="logo_url" name="logo_url">
+        </div>
+
+        <!-- Seção de Escolha de Planos (Estilo Cards com Radio Buttons) -->
+        <div class="form-group" style="margin-top: 32px;">
+            <label style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; display: block;">Selecione o seu
+                Plano</label>
+
+            <div id="plans-container"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+                <!-- Cards de planos com radio buttons serão renderizados aqui -->
+                <p>Carregando planos...</p>
+            </div>
+        </div>
+
+        <!-- Feedback e Ações -->
+        <div class="modal-actions" style="justify-content: space-between; align-items: center; margin-top: 32px;">
+            <div id="store-feedback" style="font-size: 0.875rem; font-weight: 500;"></div>
+            <button type="submit" id="save-store-button" class="button-primary">
+                Salvar Alterações
+            </button>
+        </div>
+    </form>
+</div>

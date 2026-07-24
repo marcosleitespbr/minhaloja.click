@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinhaLoja.click</title>
+    <!-- Estilos Globais -->
+    <link rel="stylesheet" href="./style.css">
+    <!-- Google Font – Inter -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+</head>
+
+<body>
+    <div class="app-wrapper">
+
+        <!-- ======================================== -->
+        <!-- SIDEBAR — Menu Lateral Colapsável        -->
+        <!-- ======================================== -->
+        <aside class="sidebar" id="sidebar">
+            <!-- Container para o efeito de partículas -->
+            <div id="particles-js"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;">
+            </div>
+
+            <!-- Conteúdo da Sidebar -->
+            <div style="position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%;">
+
+                <!-- Cabeçalho da Sidebar -->
+                <div class="sidebar-header">
+                    <div class="brand-container"
+                        style="width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <!-- Logo Completo (Aparece expandido) -->
+                        <img src="../images/logo_painel.png" alt="MinhaLoja.click" class="logo-maximized">
+                        <!-- Ícone do Logo (Aparece minimizado) -->
+                        <img src="../images/logo_painel_icon.png" alt="ML" class="logo-minimized">
+                    </div>
+                </div>
+
+                <!-- Navegação Principal -->
+                <nav class="sidebar-nav" aria-label="Navegação principal">
+                    <ul class="nav-list">
+                        <li>
+                            <a href="#dashboard" id="nav-dashboard" class="nav-item active">
+                                <i data-lucide="layout-dashboard"></i>
+                                <span class="nav-label">Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#minhaloja" id="nav-minhaloja" class="nav-item">
+                                <i data-lucide="store"></i>
+                                <span class="nav-label">Minha loja</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#produtos" id="nav-produtos" class="nav-item">
+                                <i data-lucide="package"></i>
+                                <span class="nav-label">Produtos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#configuracoes" id="nav-configuracoes" class="nav-item">
+                                <i data-lucide="settings"></i>
+                                <span class="nav-label">Configurações</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Rodapé da Sidebar: Perfil + Logout -->
+                <!-- Rodapé da Sidebar: Perfil + Logout -->
+                <div class="sidebar-footer">
+                    <div class="user-profile-widget">
+                        <div class="user-avatar-circle" id="user-avatar-initial">?</div>
+                        <div class="user-info" style="overflow: hidden;">
+                            <span class="user-name" id="user-name-display">Carregando...</span>
+                            <div><span class="user-role" id="user-role-display">Lojista</span></div>
+                        </div>
+                    </div>
+                    <a href="#" id="nav-logout" class="nav-item nav-logout">
+                        <i data-lucide="log-out"></i>
+                        <span class="nav-label">Sair</span>
+                    </a>
+
+                    <div class="sidebar-divider"></div>
+                    <div class="mars-developer-container">
+                        <span class="mars-developer-label">Desenvolvido por</span>
+                        <a href="https://marsdata.solutions" target="_blank" rel="noopener noreferrer"
+                            class="mars-brand-footer flex items-center justify-center w-full gap-2.5 group focus:outline-none"
+                            title="Desenvolvido por Mars Data Solutions">
+                            <div
+                                class="transition-transform duration-700 group-hover:rotate-180 text-slate-400 flex-shrink-0 flex items-center justify-center">
+                                <i data-lucide="orbit" class="w-5 h-5"></i>
+                            </div>
+                            <div class="mars-brand-text flex items-baseline gap-1.5 leading-none">
+                                <span class="text-xs font-extrabold tracking-wide text-white">MARS</span>
+                                <span class="text-[9px] font-light tracking-wider text-slate-400 uppercase">data
+                                    solutions</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+        </aside>
+
+        <!-- Botão flutuante para colapsar/expandir a sidebar -->
+        <button class="sidebar-edge-toggle" id="sidebarToggle" type="button" aria-label="Alternar menu">
+            <i data-lucide="chevron-left" class="w-4 h-4"></i>
+        </button>
+
+        <!-- ======================================== -->
+        <!-- ÁREA CENTRAL DE CONTEÚDO                 -->
+        <!-- ======================================== -->
+        <main id="content-area">
+            <section class="welcome-screen" style="padding: 40px;">
+                <div class="welcome-content">
+                    <h1 id="panel-welcome-title"
+                        style="color: var(--brand-dark); font-size: 1.8rem; margin-bottom: 10px;">Carregando painel...
+                    </h1>
+                    <p id="panel-welcome-desc" style="color: var(--brand-muted);">Aguarde enquanto validamos suas
+                        credenciais.</p>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <!-- Scripts de Dependência -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Script Principal do Painel -->
+    <script src="/frontend/modulos/painel.js" type="module"></script>
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MinhaLoja.click – Crie seu catálogo digital em minutos</title>
+    <meta name="description"
+        content="Transforme seu negócio com um catálogo digital moderno, rápido e fácil de gerenciar. Comece gratuitamente." />
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font – Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-800">
+
+    <!-- 1. Cabeçalho Fixo -->
+    <header class="bg-white/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 border-b border-gray-200">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#">
+                <img src="./frontend/images/logo_bg.png" alt="MinhaLoja.click Logo" class="h-10 w-auto">
+            </a>
+            <nav class="flex items-center gap-4">
+                <a href="/frontend/modulos/login.html"
+                    class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Entrar</a>
+                <a href="#pricing"
+                    class="bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg shadow-sm hover:bg-blue-700 transition-colors hidden sm:block">
+                    Criar sua Loja Grátis
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Seção Hero -->
+        <section class="pt-32 pb-20 text-center bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+                    O catálogo digital que seu negócio merece.
+                </h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+                    Crie, gerencie e compartilhe seus produtos com uma vitrine online moderna e profissional. Sem
+                    complicações.
+                </p>
+                <a href="/frontend/modulos/login.html"
+                    class="bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition-transform hover:scale-105 transform">
+                    Começar Agora – Grátis
+                </a>
+            </div>
+        </section>
+
+        <!-- Seção de Preços -->
+        <section id="pricing" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900">Planos flexíveis para todos</h2>
+                    <p class="text-gray-600 mt-2">Comece de graça e evolua conforme seu negócio cresce.</p>
+                </div>
+
+                <div id="plans-container" class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                    <!-- Cards de planos serão renderizados aqui dinamicamente -->
+                    <p class="text-center text-gray-500 md:col-span-3">Carregando planos...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const supabaseUrl = 'https://gxjwjzicymxufkvphsxp.supabase.co';
+            const supabaseAnonKey = 'sb_publishable_qpnro1yIOnuBsnrsq8nQ-Q_Ml-TVY1B';
+            const _supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
+
+            const plansContainer = document.getElementById('plans-container');
+
+            const { data: plans, error } = await _supabase
+                .from('tb_plans')
+                .select('*')
+                .order('sort_order', { ascending: true });
+
+            if (error || !plans || plans.length === 0) {
+                plansContainer.innerHTML = '<p class="text-center text-red-500 md:col-span-3">Não foi possível carregar os planos no momento.</p>';
+                console.error('Erro ao buscar planos:', error);
+                return;
+            }
+
+            plansContainer.innerHTML = ''; // Limpa o container
+
+            plans.forEach(plan => {
+                const isPro = plan.name.toLowerCase() === 'pro';
+                const itemsHtml = plan.items
+                    .split(',')
+                    .map(item => item.trim())
+                    .filter(item => item)
+                    .map(item => `
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            ${item}
+                        </li>
+                    `).join('');
+
+                const card = document.createElement('div');
+                card.className = `border rounded-xl p-8 flex flex-col relative ${isPro ? 'border-2 border-blue-600' : 'border-gray-200'}`;
+                card.innerHTML = `
+                    ${isPro ? '<span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full absolute -top-4 left-1/2 -translate-x-1/2">MAIS POPULAR</span>' : ''}
+                    <h3 class="text-xl font-semibold text-gray-900">${plan.name}</h3>
+                    <p class="text-gray-500 mt-2">${plan.description}</p>
+                    <div class="mt-4 mb-6">
+                        <span class="text-4xl font-bold">${plan.price.split('/')[0]}</span>
+                        <span class="text-gray-500">/${plan.price.split('/')[1] || 'mês'}</span>
+                    </div>
+                    <ul class="space-y-2 text-gray-600 mb-8 flex-grow">
+                        ${itemsHtml}
+                    </ul>
+                    <a href="/frontend/modulos/login.html"
+                        class="w-full text-center font-semibold py-3 rounded-lg transition-colors ${isPro ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}">
+                        Escolher plano ${plan.name}
+                    </a>
+                `;
+                plansContainer.appendChild(card);
+            });
+        });
+    </script>
+</body>
+
+</html>

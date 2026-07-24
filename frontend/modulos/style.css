@@ -1,0 +1,1087 @@
+/* Reset e Variáveis */
+:root {
+    /* Paleta de Cores Mars Data Solutions */
+    --brand-light: #FAFAFA;
+    --brand-dark: #2D3748;
+    --brand-accent: #0F172A;
+    --brand-muted: #64748B;
+    --accent-sky: #38BDF8;
+
+    /* Cores de suporte */
+    --border-color: #e2e8f0;
+    /* gray-200/60 */
+    --border-color-hover: rgba(45, 55, 72, 0.2);
+    /* brand-dark/20 */
+
+    /* Variáveis de Layout */
+    --sidebar-width: 256px;
+    --sidebar-collapsed-width: 70px;
+    --border-radius: 0.375rem;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    background-color: var(--brand-light);
+    color: var(--brand-dark);
+}
+
+/* Layout SPA (Sidebar + Main) */
+.app-wrapper {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: #0f1e36;
+    color: white;
+    position: relative;
+    /* Remove o fixed para entrar no fluxo */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    /* Impede que a sidebar encolha */
+    z-index: 1;
+    /* Garante que a sidebar fique acima de outros elementos se necessário */
+}
+
+/* 1. Bloco Superior (Header) */
+.sidebar-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 24px 20px;
+}
+
+.brand-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    overflow: hidden;
+    max-width: calc(100% - 40px);
+}
+
+.logo-maximized {
+    display: block;
+    width: 130px;
+    height: auto;
+    object-fit: contain;
+}
+
+.logo-minimized {
+    display: none;
+    height: 28px;
+}
+
+.sidebar-brand {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* 2. Bloco Central (Navegação Principal) */
+.sidebar-nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 12px;
+    overflow-y: auto;
+}
+
+/* Scrollbar styling for sidebar navigation if needed */
+.sidebar-nav::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.nav-item i {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    stroke-width: 2px;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.2s ease;
+}
+
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+}
+
+.nav-item:hover i {
+    color: #ffffff;
+}
+
+.nav-item.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.nav-item.active i {
+    color: #3b82f6;
+    /* Accent color for active icon */
+}
+
+/* Badge / Ponto de notificação sutil */
+.nav-badge {
+    background-color: #ef4444;
+    /* Soft Red */
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: auto;
+}
+
+/* 3. Bloco Inferior Fixo (Footer) */
+.sidebar-footer {
+    padding: 16px 12px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-sizing: border-box;
+}
+
+.sidebar-divider {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 4px 8px;
+}
+
+.nav-settings {
+    margin-bottom: 4px;
+}
+
+/* Widget de Perfil do Usuário */
+.user-profile-widget {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.03);
+    overflow: hidden;
+}
+
+.user-avatar-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #3b82f6;
+    /* Modern Blue Avatar */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.user-profile-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.user-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.user-role {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/* Logout */
+.nav-logout {
+    color: #f87171;
+    /* Soft red for logout button */
+}
+
+.nav-logout i {
+    color: #f87171;
+}
+
+.nav-logout:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.nav-logout:hover i {
+    color: #ef4444;
+}
+
+/* Content Area */
+#content-area {
+    flex: 1;
+    /* Faz o conteúdo ocupar todo o espaço restante */
+    min-width: 0;
+    /* Previne que tabelas grandes estourem o layout */
+    padding: 40px;
+    overflow-y: auto;
+    /* Adiciona scroll apenas ao conteúdo se necessário */
+    background-color: var(--brand-light);
+}
+
+/* Novo Gatilho de Colapso (Toggle Button) */
+.sidebar-toggle-btn {
+    position: absolute;
+    top: 50%;
+    right: -12px;
+    /* Posicionado sobre a borda divisória */
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    border: 1px solid #d9d9d9;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    transition: background-color 0.2s, transform 0.3s ease;
+}
+
+.sidebar-toggle-btn span {
+    color: #2c3e50;
+    font-weight: bold;
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-toggle-btn:hover {
+    background-color: #f8f9fa;
+}
+
+/* Novo botão flutuante na borda da sidebar */
+.sidebar-edge-toggle {
+    position: fixed;
+    top: 50%;
+    /* Altura ajustada para o topo ou centro da barra */
+    left: calc(var(--sidebar-width) - 0px);
+    /* Posicionado exatamente no limite da borda */
+    transform: translateX(-50%);
+    width: 28px;
+    height: 28px;
+    background-color: #ececec !important;
+    /* background-color: #0F172A !important; */
+    /* Azul corporativo escuro */
+    color: #ffffff !important;
+    /* Ícone em branco */
+    border: 2px solid #ffffff !important;
+    /* Borda de destaque limpa */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: left 0.3s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+/* Força a cor branca visível no ícone SVG interno do Lucide */
+.sidebar-edge-toggle svg {
+    width: 14px !important;
+    height: 14px !important;
+    stroke: #ffffff !important;
+    stroke-width: 3px !important;
+}
+
+.sidebar-edge-toggle:hover {
+    background-color: #38BDF8 !important;
+    /* Azul claro Mars no hover */
+}
+
+/* Garante que o ícone mude para escuro se o fundo do hover for claro, ou mantenha contraste */
+.sidebar-edge-toggle:hover svg {
+    stroke: #0F172A !important;
+}
+
+/* Collapsed Sidebar State */
+.app-wrapper.sidebar-collapsed .sidebar {
+    width: var(--sidebar-collapsed-width);
+}
+
+.app-wrapper.sidebar-collapsed .sidebar-header {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 0;
+    gap: 24px;
+}
+
+.app-wrapper.sidebar-collapsed .brand-container {
+    max-width: 100%;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.app-wrapper.sidebar-collapsed .logo-maximized,
+.app-wrapper.sidebar-collapsed .sidebar-brand {
+    display: none;
+}
+
+.app-wrapper.sidebar-collapsed .logo-minimized {
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin: 0 auto;
+}
+
+.app-wrapper.sidebar-collapsed .sidebar-nav {
+    padding: 16px 8px;
+    align-items: center;
+}
+
+.app-wrapper.sidebar-collapsed .nav-item {
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+}
+
+.app-wrapper.sidebar-collapsed .nav-label {
+    display: none;
+}
+
+.app-wrapper.sidebar-collapsed .nav-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    margin-left: 0;
+    font-size: 0.6rem;
+    padding: 1px 4px;
+    border-radius: 6px;
+}
+
+.app-wrapper.sidebar-collapsed .sidebar-footer {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    gap: 16px;
+}
+
+.app-wrapper.sidebar-collapsed .user-profile-widget {
+    background: transparent;
+    padding: 10px 0;
+    justify-content: center;
+    width: 100%;
+}
+
+.app-wrapper.sidebar-collapsed .user-avatar-circle {
+    margin: 0 auto;
+}
+
+.app-wrapper.sidebar-collapsed .user-info {
+    display: none !important;
+}
+
+.app-wrapper.sidebar-collapsed .nav-logout {
+    justify-content: center;
+    padding: 10px;
+    margin: 0;
+}
+
+/* Ajuste da posição do botão quando a sidebar estiver colapsada */
+.app-wrapper.sidebar-collapsed .sidebar-edge-toggle {
+    left: var(--sidebar-collapsed-width) !important;
+}
+
+/* Login Page Styles */
+.login-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+    margin: 100px auto;
+}
+
+.login-container input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Tabelas e Componentes */
+h1 {
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Removido para dar lugar a um sistema de botões mais robusto */
+button {
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+/* Botões de Ação */
+.btn-primary-custom {
+    background-color: var(--accent-sky);
+    color: var(--brand-accent);
+    border-radius: var(--border-radius);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    /* tracking-wide */
+    font-weight: 700;
+    /* font-bold */
+    font-size: 0.75rem;
+    /* text-xs */
+    padding: 0.75rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+}
+
+.btn-secondary-custom {
+    background-color: transparent;
+    color: var(--brand-muted);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-secondary-custom:hover {
+    border-color: var(--brand-dark);
+    color: var(--brand-dark);
+}
+
+/* Tabela de Gestão */
+.table-card-container {
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 32px;
+    /* p-8 */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.temp-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.temp-table th,
+.temp-table td {
+    padding: 16px;
+    /* Espaçamento generoso */
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.875rem;
+    color: var(--brand-muted);
+}
+
+.temp-table th {
+    background-color: #f9fafb;
+    /* Cinza claro */
+    color: var(--brand-dark);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+.temp-table tbody tr:hover {
+    background-color: #f9fafb;
+    /* gray-50 */
+}
+
+/* Tabelas e Componentes */
+h1 {
+    color: var(--brand-dark);
+    margin-bottom: 30px;
+}
+
+/* ... (outros estilos de tabela e componentes) */
+
+/* ... (outros estilos de tabela e componentes) */
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: white;
+}
+
+.priority-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: white;
+}
+
+/* Priority colors */
+.priority-baixa {
+    background-color: #6c757d;
+}
+
+.priority-média {
+    background-color: #17a2b8;
+}
+
+.priority-alta {
+    background-color: #fd7e14;
+}
+
+.priority-urgente {
+    background-color: #dc3545;
+}
+
+/* Status colors */
+.status-pendente-aceite-coordenador,
+.status-pendente-aceite-projetista,
+.status-pendente-aceite-emissor {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.status-devolvido-ao-solicitante,
+.status-devolvido-ao-coordenador,
+.status-devolvido-ao-projetista {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+.status-com-impedimento {
+    background-color: #55040c;
+    color: #ffffff;
+}
+
+.status-na-fila-para-projetar,
+.status-na-fila-para-documentacao,
+.status-pausado {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.status-em-andamento,
+.status-pendente-aprovacao-coordenador,
+.status-documentacao-em-emissao {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.status-concluido {
+    background-color: #13c740;
+    color: #000000;
+}
+
+/* Action Dropdown */
+.action-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle-button:hover {
+    color: var(--primary-color);
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 4px;
+    right: 0;
+    /* Align to the right of the button */
+    top: 100%;
+    /* Position below the button */
+    margin-top: 5px;
+}
+
+.dropdown-menu a {
+    color: black;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-menu a:hover:not(.disabled) {
+    background-color: #f1f1f1;
+}
+
+.dropdown-menu.show {
+    display: block;
+    /* Mostra o menu quando a classe .show é adicionada via JS */
+}
+
+.dropdown-menu a.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Botão Adicionar Tarefa */
+.add-task-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    transition: background-color 0.2s ease;
+}
+
+.add-task-button:hover {
+    background-color: #004085;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1000;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+}
+
+.modal-content h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Flex container to place fields side by side on the same row */
+.form-row {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.form-group input[type="text"],
+.form-group input[type="url"],
+.form-group input[type="date"],
+.form-group select {
+    width: calc(100% - 22px);
+    /* Adjust for padding and border */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+/* Modal Actions (buttons) */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+/*
+ * ============================================================================
+ *   DESIGN SYSTEM DE BOTÕES (MARS)
+ * ============================================================================
+*/
+
+/* Botão Primário (Salvar, Confirmar) */
+.button-primary {
+    background-color: #0F172A;
+    color: white;
+    padding: 8px 24px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: background-color 0.2s ease;
+}
+
+.button-primary:hover {
+    background-color: #2d3748;
+    /* Um tom ligeiramente mais claro para o hover */
+}
+
+/* Botão Secundário (Cancelar, Fechar) */
+.button-secondary {
+    background-color: transparent;
+    color: var(--brand-muted);
+    /* #64748B */
+    padding: 8px 24px;
+    border: 1px solid #d1d5db;
+    /* border-gray-300 */
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+}
+
+.button-secondary:hover {
+    color: #0F172A;
+    border-color: #0F172A;
+}
+
+/* Settings Page & Tabs */
+.settings-container {
+    /* max-width: 1000px; */
+    margin: 0 auto;
+}
+
+.settings-tabs {
+    display: flex;
+    border-bottom: 2px solid #e5e7eb;
+    margin-bottom: 25px;
+    gap: 8px;
+}
+
+.settings-tab-btn {
+    padding: 12px 20px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #4b5563;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 4px 4px 0 0;
+    display: flex;
+    align-items: center;
+}
+
+.settings-tab-btn:hover {
+    color: var(--primary-color);
+    background-color: rgba(0, 86, 179, 0.05);
+}
+
+.settings-tab-btn.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    background-color: rgba(0, 86, 179, 0.02);
+}
+
+.settings-tab-pane {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.settings-tab-pane.active {
+    display: block;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.settings-header h2 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.5rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * ============================================================================
+ *   CORREÇÃO DE CONTRASTE - ÍCONES DE AÇÃO DA TABELA
+ * ============================================================================ */
+
+/* Alvo universal para ícones dentro da última coluna da tabela (Ações) */
+td:last-child i,
+td:last-child [data-lucide] {
+    color: #64748B !important;
+    /* Cor brand-muted (#64748B) explícita */
+    stroke: #64748B !important;
+}
+
+/* Efeito de hover para dar feedback visual */
+.actions-cell button:hover i[data-lucide] {
+    color: #0F172A !important;
+    /* #0F172A */
+}
+
+/*
+ * ============================================================================
+ *   CONTROLE DE DENSIDADE DA INTERFACE (SPA)
+ * ============================================================================
+*/
+.density-compact {
+    zoom: 0.8;
+    transform-origin: top left;
+    width: 125%;
+}
+
+/* Previne que modais sejam afetados pelo zoom do container pai */
+.modal-overlay .density-compact {
+    zoom: 1 !important;
+}
+
+/* Anula o estilo global de links para o rodapé da Mars */
+a.mars-brand-footer,
+a.mars-brand-footer:link,
+a.mars-brand-footer:visited {
+    color: inherit !important;
+    text-decoration: none !important;
+    background-color: transparent;
+}
+
+/*
+ * FORÇA O ALINHAMENTO HORIZONTAL DO LOGOTIPO DA MARS
+ * Anula a herança de 'flex-direction: column' do .sidebar-footer
+ */
+.mars-brand-footer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    box-sizing: border-box;
+    gap: 10px !important;
+    padding: 10px 14px;
+    text-decoration: none !important;
+    border-radius: 6px;
+    /* transition: background-color 0.2s ease; */
+}
+
+a.mars-brand-footer span.mars-text-white {
+    color: #ffffff !important;
+}
+
+a.mars-brand-footer span.mars-text-muted {
+    color: #94a3b8 !important;
+    /* slate-400 */
+}
+
+/*
+ * ============================================================================
+ *   CLASSES UTILITÁRIAS (SIMULANDO TAILWIND) PARA ANIMAÇÃO DO LOGO
+ * ============================================================================
+*/
+.transition-transform {
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+.duration-700 {
+    transition-duration: 700ms;
+}
+
+/* Garante que o ícone gire em torno do seu próprio centro exato */
+.group .group-hover\:rotate-180 {
+    display: inline-block;
+    /* Garante que o elemento tenha um box model previsível */
+    transform-origin: center;
+    /* Define o pivô da rotação para o centro */
+}
+
+.group:hover .group-hover\:rotate-180 {
+    transform: rotate(180deg);
+}
+
+/*
+ * ============================================================================
+ *   COMPORTAMENTO DO LOGO MARS QUANDO A SIDEBAR ESTÁ COLAPSADA
+ * ============================================================================
+*/
+
+/* Centraliza o contêiner do logotipo */
+.app-wrapper.sidebar-collapsed .mars-brand-footer {
+    justify-content: center !important;
+    padding: 10px 0 !important;
+}
+
+/* Oculta o texto da marca (infalível) */
+.app-wrapper.sidebar-collapsed .mars-brand-footer .mars-brand-text {
+    display: none !important;
+}
+
+.mars-developer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 12px 0 12px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mars-developer-label {
+    font-size: 10px;
+    color: #94a3b8;
+    /* slate-400 (cinza padrão da Mars) */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    text-align: center;
+    width: 100%;
+}
+
+/* Quando a sidebar estiver colapsada, o rótulo "Desenvolvido por" deve sumir junto com o texto do logo */
+.app-wrapper.sidebar-collapsed .mars-developer-label {
+    display: none !important;
+}
